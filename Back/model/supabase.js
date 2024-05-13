@@ -195,6 +195,17 @@ async function updateTask(a,b,c){
     return data;
 
 }
+async function deleteT(a){
+    
+ 
+    const { error } = await supabase
+    .from('todolist')
+    .delete()
+    .eq('id', a)
+    return {error};
 
 
-export {add_user, addTask, addStatus, getUsername, loginUser, getUserTask , updateTask};
+}
+
+
+export {add_user, addTask, addStatus, getUsername, loginUser, getUserTask , updateTask,deleteT};

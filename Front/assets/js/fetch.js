@@ -90,6 +90,20 @@ async function setTask(a) {
     }
 }    
 
+async function deleteTask(a){
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(a)
+    };
+    
+    try {
+        const response = await fetch('http://localhost:3000/delete', requestOptions);
+        const data = await response.json();
+        return data; 
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout de status :', error);
+    }
+}
 
-
-export { register_user, addTask, addStatus, connectUser,setTask }
+export { register_user, addTask, addStatus, connectUser,setTask,deleteTask }

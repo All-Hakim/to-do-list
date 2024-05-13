@@ -1,6 +1,6 @@
 import express, { urlencoded } from 'express'
 import cors from 'cors'
-import { add_user, addTask, addStatus, getUsername, loginUser, getUserTask, updateTask} from './model/supabase.js'
+import { add_user, addTask, addStatus, getUsername, loginUser, getUserTask, updateTask,deleteT} from './model/supabase.js'
 
 const app = express()
 const port = 3000
@@ -94,6 +94,17 @@ app.post('/set', async function(req,res){
     const status=req.body.status;
     try {
         const tasks = await updateTask(task,status,id);
+  
+      } catch (error) {
+        console.error('Erreur lors de la récupération des tâches :', error);
+        res.status(500).json({ error: 'Erreur lors de la récupération des tâches' });
+      }
+})
+app.post('/delete', async function(req,res){
+    const id=req.body.id;
+   
+    try {
+        const tasks = await deleteT(id);
   
       } catch (error) {
         console.error('Erreur lors de la récupération des tâches :', error);

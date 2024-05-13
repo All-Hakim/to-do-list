@@ -22,7 +22,10 @@ async function afficherFilms() {
         id.innerHTML = element.id;
         // id.style.display = 'none'
         card.appendChild(id);
-
+        const a=document.createElement('a');
+        a.href='./supprimer.html?id='+ element.id + '&username=' + nom
+        a.textContent = "Supprimer";
+        card.appendChild(a);
 
         body.appendChild(card)
 
