@@ -7,7 +7,8 @@ async function afficherFilms() {
     const body = document.querySelector("body");
     const reponse =  await fetch("http://localhost:3000/tasks?username=" + encodeURIComponent(nom));
     const films = await reponse.json();
-    console.log(films);
+    const taches = document.querySelector('.taches')
+
     films.forEach(element => {
         const card = document.createElement('div');
         card.className = "card"
@@ -17,6 +18,14 @@ async function afficherFilms() {
         card.appendChild(h);
         const p = document.createElement('p')
         p.innerHTML = element.status;
+        if(element.status == 'en cours'){
+            p.style.backgroundColor = '#f77500'
+        }else if (element.status == 'fait'){
+            p.style.backgroundColor = '#01d601'
+        }else{
+            p.style.backgroundColor = '#df122d'
+        }
+
         card.appendChild(p);
         const id = document.createElement('h6')
         id.innerHTML = element.id;
@@ -27,27 +36,30 @@ async function afficherFilms() {
         a.textContent = "Supprimer";
         card.appendChild(a);
 
-        body.appendChild(card)
+        taches.appendChild(card)
 
     });
 }
+const page = document.getElementById('page')
 function recupererID(){
-    const modif = document.getElementById('modif')
     const ai = document.getElementById('ai')
 
     const cartes=document.querySelectorAll('.card')
     cartes.forEach(element => {
-        element.addEventListener('click',function(){
+        const boton=document.createElement('button')
+        boton.innerHTML='<i class="fa-solid fa-pen"></i>'
+        element.appendChild(boton)
+        boton.addEventListener('click',function(){
             const h6=element.querySelector('h6').innerHTML
             console.log(h6);
-            modif.style.display = 'block'
+            page.style.display = 'block'
             ai.value = h6
             
         })
     });
 }
 afficherFilms();
-setTimeout(recupererID,5000);
+setTimeout(recupererID,500);
 
 const newForm = document.getElementById('new');
 newForm.addEventListener('submit',async function(e){
@@ -62,7 +74,11 @@ newForm.addEventListener('submit',async function(e){
         status: status,
     }
     console.log(taskData);
-    const response = await setTask(taskData);
+    if(setTask(taskData,nom)){
+        window.location.href= 'task.html?username=' + nom;
+    }
+
 })
+
 
 

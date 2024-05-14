@@ -74,7 +74,7 @@ async function addStatus(statusData) {
 
 
 
-async function setTask(a) {
+async function setTask(a,b) {
     const requestOptions = {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -84,7 +84,9 @@ async function setTask(a) {
     try {
         const response = await fetch('http://localhost:3000/set', requestOptions);
         const data = await response.json();
+        
         return data; 
+        window.location.href = '../Front/task.html?username=' + b;
     } catch (error) {
         console.error('Erreur lors de l\'ajout de status :', error);
     }

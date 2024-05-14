@@ -4,40 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
-        /* Style pour le conteneur de la table */
-        .task-manager {
+        
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+        body{
+            background-color:  #ADD8E6;
+        }
+        header{
+            background-color: black;
+            padding:  1rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: #FFD700;
+        }
+        header i{
+            font-size: 1.8rem;
+        }
+        a{
+            color: unset;
+        }
+
+        .b{
+            display: flex;
+            justify-content: center;
+        }
+        #task-form{
+            margin-block: 1rem;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            /* width: 400px; */
+            gap: 1rem;
+            background-color: black;
+            color: #fff;
+            border: #FFD700 2px solid;
+            border-radius: 20px;
+        }
+        #task-form h2{
+            text-align: center;
+            color: #FFD700;
+        }
+        input{
+            background-color: #ADD8E6;
+            border: #fff 2px solid;  
+            border-radius: 10px;
+            padding: 0.3rem 0.5rem;
+        }
+
+        .a{
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            align-items: center;
+        }
+        select{
+            width: fit-content;
+            background-color: #ADD8E6;
+        }
+
+        #task-form button{
+            width: fit-content;
+            background-color: #FFD700;
+            color: #fff;
+            padding: 0.3rem 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        .card{
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-block: 1rem;
+            color: #fff;
+            background-color: black;
+            border-radius: 20px;
+        }
+        .card h1{
+            margin-bottom: 1rem;
+            color: #fff;
+            background-color: #FFD700;
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            text-align: center;
+            padding-block: 0.5rem;
         }
+        .card p{
 
-        table {
+            border-radius: 20px;
+            padding: 0.2rem 0.3rem;
+        }
+        .card a{
+            margin-top: 1rem;
+            text-decoration: none;
+            background-color: #9B111E;
+            padding: 0.5rem;
+        }
+        .taches{
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding:1.5rem 3rem;
+        }
+        #verrou{
+            position: fixed;
+            height: 100vh;
             width: 100%;
-            border-collapse: collapse;
+            background-color: rgb(0, 0, 0,0.7);
+            backdrop-filter: blur(2px);
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
         }
-
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            text-align: left;
+        #verrou form{
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem;
         }
-
-        th {
-            background-color: #f2f2f2;
+        #verrou form button{
+            width: fit-content;
+            background-color: #FFD700;
+            color: #fff;
+            padding: 0.3rem 0.5rem;
+            border: none;
+            cursor: pointer;
         }
-
-        form {
-            margin-bottom: 20px;
-        }
-        #modif{
+        #page{
             display: none;
         }
-
+        .card button{
+            background-color: transparent;
+            border: none;
+            padding: 0.2rem;
+        }
+        button i {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
+
     <div class="task-manager">
+        <div id="page">
+        <div id="verrou">
         <div id="modif">
             <form id="new" action="">
                 <input type="hidden" name="id" value="" id="ai">
@@ -50,26 +175,40 @@
                 <button type="submit">Modifier</button>
             </form>
         </div>
-        <h2>Task Manager</h2>
+    </div>
+</div>
+    <header>
+        <h1>Task Manager</h1>
+        <a href="./login.html"><i class="fa-solid fa-right-to-bracket"></i></a>
+    </header>
+
         <!-- Formulaire pour ajouter une tâche -->
+        <div class="b">
         <form id="task-form">
+            <h2>Add Task</h2>
+            <div class="a">
+
             <label for="task">Task:</label>
             <input type="text" id="task" name="task">
+         </div>
             
-            
+            <div class="a">
             <label for="status">Status:</label>
             <select name="status" id="status" >
-                <option value="en cours">en cours</option>
-                <option value="fait">fait</option>
-                <option value="plus tard">plus tard</option>
-
+                <option style="background-color: #f77500 ;" value="en cours">en cours</option>
+                <option style="background-color: #01d601;" value="fait">fait</option>
+                <option style="background-color:#df122d;" value="plus tard">plus tard</option>
             </select>
-            <button id="ajouter" type="submit">Add Task</button>
-        </form>
+           </div>
+           <div class="b">
 
-                <!-- Les tâches seront ajoutées ici dynamiquement -->
-            </tbody>
-        </table>
+               <button id="ajouter" type="submit">Add Task</button>
+           </div>
+        </form>
+        </div>
+        <div class="taches">
+
+        </div>
     </div>
 </body>
 <script src="./assets/js/taches.js" type="module"></script>
